@@ -1,0 +1,24 @@
+<button 
+  mat-button
+  [class]="'custom-button custom-button--' + variant + ' custom-button--' + size + (fullWidth ? ' custom-button--full-width' : '')"
+  [type]="type"
+  [color]="color"
+  [disabled]="disabled || loading"
+  (click)="onClick()">
+  
+  <!-- Loading spinner -->
+  <mat-icon *ngIf="loading" class="custom-button__spinner">refresh</mat-icon>
+  
+  <!-- Left icon -->
+  <mat-icon *ngIf="icon && iconPosition === 'left' && !loading" class="custom-button__icon custom-button__icon--left">
+    {{ icon }}
+  </mat-icon>
+  
+  <!-- Button text -->
+  <span *ngIf="text" class="custom-button__text">{{ text }}</span>
+  
+  <!-- Right icon -->
+  <mat-icon *ngIf="icon && iconPosition === 'right' && !loading" class="custom-button__icon custom-button__icon--right">
+    {{ icon }}
+  </mat-icon>
+</button>

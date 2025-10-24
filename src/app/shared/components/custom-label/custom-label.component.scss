@@ -1,0 +1,47 @@
+.custom-label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease;
+  
+  &--small {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  
+  &--medium {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  &--large {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  &--primary {
+    color: var(--mat-sys-primary);
+  }
+  
+  &--secondary {
+    color: var(--mat-sys-secondary);
+  }
+  
+  &--accent {
+    color: var(--mat-sys-tertiary);
+  }
+  
+  &--warn {
+    color: var(--mat-sys-error);
+  }
+  
+  &--bold {
+    font-weight: 600;
+  }
+  
+  &__required {
+    color: var(--mat-sys-error);
+    margin-left: 2px;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,6 @@
+<label 
+  [for]="for"
+  [class]="'custom-label custom-label--' + size + ' custom-label--' + color + (bold ? ' custom-label--bold' : '')">
+  {{ text }}
+  <span *ngIf="required" class="custom-label__required">*</span>
+</label>
