@@ -1,0 +1,127 @@
+.dashboard-container {
+  height: 100vh;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidebar {
+  width: 200px;
+  background: #ffffff;
+  color: #000;
+  border-right: 1px solid #e0e0e0;
+}
+
+.logo {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #444;
+}
+
+.mat-nav-list .mat-list-item {
+  color: white;
+}
+
+.mat-nav-list .mat-list-item:hover {
+  background-color: #374151;
+}
+
+.main-content {
+  padding: 16px;
+  width: calc(100vw - 200px);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.status.active {
+  color: green;
+  font-weight: bold;
+}
+
+.mat-form-field {
+  width: 200px;
+}
+
+table {
+  width: 100%;
+}
+
+table th, table td {
+  text-align: left;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.full-width-table,
+table.mat-table,
+.mat-table {
+  width: 100% !important;
+}
+.table-heading {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.mat-row, .mat-header-row {
+  display: table-row;
+}
+
+.active {
+  color: #0a7b12;
+  font-weight: 600;
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.user-text .name {
+  font-weight: 600;
+  color: #000;
+  line-height: 1.2;
+}
+
+.user-text .email {
+  font-size: 12px;
+  color: #666;
+}

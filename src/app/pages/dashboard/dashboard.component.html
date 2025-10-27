@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened class="sidebar">
+      <div class="logo"><h2>COD</h2></div>
+      <mat-nav-list>
+        <mat-list-item routerLink="/dashboard">Dashboard</mat-list-item>
+        <mat-list-item routerLink="/users">Users</mat-list-item>
+        <mat-list-item>Settings</mat-list-item>
+        <mat-list-item>Logout</mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-content">
+        <h1 class="table-heading">Dashboard Management</h1>
+      <table mat-table [dataSource]="users" class="mat-elevation-z1 user-table">
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>Sl.No</th>
+          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let row">
+            <div class="user-cell">
+              <div class="user-text">
+                <div class="name">{{ row.name }}</div>
+                <div class="email">{{ row.email }}</div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="coins">
+          <th mat-header-cell *matHeaderCellDef>Coins</th>
+          <td mat-cell *matCellDef="let row">{{ row.coins }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdOn">
+          <th mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let row">{{ row.createdOn }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let row">
+            <span [class.active]="row.status === 'Active'">{{ row.status }}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

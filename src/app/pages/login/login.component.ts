@@ -9,7 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/services/auth.service';
-
+import { CustomButtonComponent } from '../../shared/components/custom-button/custom-button.component';
+import { CustomLabelComponent } from '../../shared/components/custom-label/custom-label.component';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,10 +22,12 @@ import { AuthService } from '../../core/services/auth.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CustomButtonComponent,
+    CustomLabelComponent
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
