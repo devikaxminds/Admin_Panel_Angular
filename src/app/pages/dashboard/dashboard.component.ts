@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -6,17 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule, Router } from '@angular/router';
+import { QuestionService, Question } from '../../core/services/question.service';
 
-interface User {
-  name: string;
-  email: string;
-  phone?: string;
-  coins: number;
-  createdOn: string;
-  status: string;
-  personalData: string;
-  // profilePic?: string;
-}
+
 
 @Component({
   selector: 'app-dashboard',
@@ -28,23 +20,78 @@ interface User {
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    RouterModule
+    RouterModule,
+
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
-  users: User[] = [
-    { name: 'Dhan', email: 'DhhG@test.com', coins: 500, createdOn: '23/Sep/2025', status: 'Active', personalData: 'HV4J+FMJ, Technopark Campus, Kerala' },
-    { name: 'HAR', email: 'haamk@gmail.com', phone: '+9198246589298', coins: 500, createdOn: '19/Aug/2025', status: 'Active', personalData: 'string' },
-    { name: 'har', email: 'haa@example.com', coins: 500, createdOn: '19/Aug/2025', status: 'Active', personalData: 'string' },
-    { name: 'jinu', email: 'jinu@gmail.com', phone: '+919656736682', coins: 480, createdOn: '11/Mar/2025', status: 'Active', personalData: 'tvm' },
-    // Add more dummy users
-  ];
-  displayedColumns = ['index', 'name', 'coins', 'createdOn', 'status'];
-  constructor(private readonly router: Router) {}
+export class DashboardComponent implements OnInit{
+  questions: Question[] = [];
+  displayedColumns: string[] = ['index','question','type','createdOn','status'];
 
-  onRowClick(user: User) {
-    this.router.navigate(['users']); // or ['/users', user.id] if you add ids
+  loading = false;
+  error = '';
+  total = 0;
+  page = 1;
+  size = 10;
+  typeFilter = 'match';
+  search = '';
+  totalPages = 0;
+
+  constructor(
+    private readonly questionService: QuestionService,
+    private readonly router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadQuestions();
+  }
+
+  loadQuestions(): void {
+    this.loading = true;
+    this.error = '';
+    this.questionService.getQuestions({
+      page: this.page,
+      size: this.size,
+      type: this.typeFilter,
+      search: this.search
+    }).subscribe({
+      next: res => {
+        this.questions = res.data;
+        this.total = res.total;
+        this.page = res.page;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.error?.message || 'Failed to load questions';
+        this.loading = false;
+      }
+    });
+  }
+
+  // Simple pagination example (previous / next)
+  nextPage(): void {
+    if (this.page * this.size < this.total) {
+      this.page++;
+      this.loadQuestions();
+    }
+  }
+  prevPage(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.loadQuestions();
+    }
+  }
+
+  onRowClick(q: Question): void {
+    // Placeholder: navigate or open details
+    console.log('Clicked question', q);
+  }
+
+  onSearchChange(value: string): void {
+    this.search = value;
+    this.page = 1;
+    this.loadQuestions();
   }
 }

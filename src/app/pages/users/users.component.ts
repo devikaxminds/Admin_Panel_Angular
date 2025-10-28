@@ -1,22 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { UserService, User } from '../../core/services/user.service';
+import { RouterModule, Router } from '@angular/router';
 
-
-interface User {
-  name: string;
-  email: string;
-  phone?: string;
-  coins: number;
-  createdOn: string;
-  status: string;
-  personalData: string;
-  // profilePic?: string;
-}
 
 @Component({
   selector: 'app-users',
@@ -28,18 +19,42 @@ interface User {
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    
+    RouterModule
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
-  users: User[] = [
-    { name: 'Dhan', email: 'DhhG@test.com', coins: 500, createdOn: '23/Sep/2025', status: 'Active', personalData: 'HV4J+FMJ, Technopark Campus, Kerala' },
-    { name: 'HAR', email: 'haamk@gmail.com', phone: '+9198246589298', coins: 500, createdOn: '19/Aug/2025', status: 'Active', personalData: 'string' },
-    { name: 'har', email: 'haa@example.com', coins: 500, createdOn: '19/Aug/2025', status: 'Active', personalData: 'string' },
-    { name: 'jinu', email: 'jinu@gmail.com', phone: '+919656736682', coins: 480, createdOn: '11/Mar/2025', status: 'Active', personalData: 'tvm' },
-    // Add more dummy users
-  ];
+export class UsersComponent implements OnInit{
+  users: User[] = [];
   displayedColumns = ['index', 'name', 'coins', 'createdOn', 'status'];
+  loading = false;
+  error = '';
+
+  constructor(private readonly router: Router,
+              private readonly userService: UserService) {}
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.loading = true;
+    this.error = '';
+    this.userService.getUsers({ page: 1, size: 10 })
+      .subscribe({
+        next: (res) => {
+          // adjust mapping if API shape differs
+          this.users = res.data ?? [];
+          this.loading = false;
+        },
+        error: (e) => {
+          this.error = e.error?.message || 'Failed to load users';
+          this.loading = false;
+        }
+      });
+  }
+
+  onRowClick(user: User) {
+    this.router.navigate(['/users']);
+  }
 }
